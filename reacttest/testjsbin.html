@@ -1,0 +1,69 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <meta charset="utf-8" />
+    
+    <link href="css/lib/bootstrap.min.css" rel="stylesheet" />
+    <script src="js/lib/browser.min.js"></script>
+    <!--<script src="js/lib/JSXTransformer.js"></script>-->
+    <script src="js/lib/react.min.js"></script>
+    <script src="js/lib/jquery-1.11.2.min.js"></script>
+    <script type="text/babel">
+        var TweetBox = React.createClass({
+        getInitialState: function() {
+        return {
+            text: "",
+            photoAdded:false
+            };
+        },
+        show:function(){
+            console.log("a");
+        },
+        togglePhoto:function(){
+            //console.log(this.state.photoAdded);
+            this.setState({photoAdded:!this.state.photoAdded});
+        },
+        remainingCharacters:function(){
+            console.log(this.state.photoAdded);
+        if(this.state.photoAdded){
+            console.log(140-23-this.state.text.length);
+            return 140-23-this.state.text.length;
+        }else{
+            console.log(140-this.state.text.length);
+            return 140-this.state.text.length;
+        }
+        },
+        handleChange: function(event) {
+            //this.state.text=event.target.value;
+            this.setState({ text: event.target.value });
+        },
+        render: function() {
+        return (
+        <div className="well clearfix">
+            <textarea className="form-control"
+                      onChange={this.handleChange}></textarea>
+            <br />
+            <button className="btn btn-primary pull-right" disabled={this.state.text.length ===0&&!this.state.photoAdded} onClick={this.show}>Tweet</button>
+            <button className="btn btn-default pull-right" onClick={this.togglePhoto}>
+                {this.state.photoAdded ? "√ Photo Added":"Add Photo"}
+            </button>
+            <span>{140-this.state.text.length}|{this.remainingCharacters()}</span>
+        </div>
+        );
+        }
+        });
+
+        React.render(
+        <TweetBox />,
+        document.getElementById("example")
+        );
+
+    </script>
+
+</head>
+<body>
+    <div id="example" />
+</body>
+</html>
